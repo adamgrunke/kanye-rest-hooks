@@ -1,11 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import axios from 'axios';
 
 const App: React.FC = () => {
+const [quote, setQuote] = useState<String>('')
+
+function handleNewQuote(): void {
+  axios.get(`https://api.kanye.rest`)
+  .then((res) => {
+    console.log(res.data)
+    setQuote(res.data.quote)
+  })
+}
+
   return (
     <div className="App">
-        <h1>test</h1>
+      <button onClick={() => handleNewQuote()}>quotes</button>
+      <p>{quote}</p>
     </div>
   );
 }
